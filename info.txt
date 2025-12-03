@@ -1,0 +1,227 @@
+Final AI Project
+Due 10 Dec by 23:59 Points 100 Submitting a file upload Available 12 Nov at 0:00 - 11 Dec at 23:59
+Final Project Instructions: AI Project Evaluation Rubric
+Project Evaluation Criteria
+Refer to the AI Project Evaluation Rubric [PDF Download PDF
+
+]:
+The rubric outlines the evaluation categories, including technical implementation, creativity, innovation, presentation, and documentation.
+Review each section of the rubric carefully to ensure your project meets the expectations for high scores.
+Submission Guidelines
+Deliverables:
+
+Project Report:
+Submit a comprehensive report in PDF format.
+Include the following sections:
+Introduction: Brief overview of the problem and your solution.
+Methodology: Detailed description of the AI techniques, algorithms, and tools used.
+Results: Analysis, visualizations, or metrics demonstrating the project outcomes.
+Conclusion: Reflection on the results and potential future improvements.
+References: List all resources and citations in a standard format.
+Project Files:
+Submit all code, datasets (if applicable), and dependencies in a zip file.
+Include a clear README file with instructions for running the project, detailing:
+Software requirements.
+Steps to set up the environment.
+Command-line instructions or GUI usage.
+File Naming Convention:
+
+Use the format: ProjectTitle.pdf for the report and ProjectTitle.zip for the project files.
+Submission Method:
+
+Upload both files to the designated platform before the deadline.
+Important Notes ⚠️⚠️⚠️⚠️:
+Ensure the code is functional and thoroughly tested before submission.
+Documentation will be a key part of the evaluation. Poorly documented projects will lose marks.
+Late submissions are not available at this point or the use of slack days.
+ 
+
+ 
+
+Rubric
+Final AI Project
+Final AI Project
+Criteria	Ratings	Pts
+This criterion is linked to a learning outcomeProblem Definition: Informal Description
+5 Pts
+Excellent
+Informal description clearly communicates the problem in an engaging and easy-to-understand way.
+3.75 Pts
+Satisfactory
+Informal description communicates the problem but lacks clarity or completeness.
+2.5 Pts
+Poor
+Vague description with significant omissions.
+0 Pts
+No Marks
+No informal description provided.
+5 pts
+This criterion is linked to a learning outcomeProblem Definition: Formal Definition and Type Identification
+8 Pts
+Excellent
+Correctly identifies the problem type (e.g., optimization, supervised learning, unsupervised learning). Provides a formal definition with clear objectives, constraints, and assumptions.
+6 Pts
+Satisfactory
+Problem type is identified, and formal definition is provided but with minor errors or omissions.
+4 Pts
+Poor
+Problem type or formal definition is incomplete or lacks clarity.
+0 Pts
+No Marks
+No formal definition or problem type provided.
+8 pts
+This criterion is linked to a learning outcomeProblem Definition: Motivation
+5 Pts
+Excellent
+Provides a compelling explanation of why the problem needs to be solved, highlighting benefits and usage.
+3.75 Pts
+Satisfactory
+Explains motivation but lacks depth or specific benefits.
+2.5 Pts
+Poor
+Motivation is unclear or poorly articulated.
+0 Pts
+No Marks
+No explanation of motivation provided
+5 pts
+This criterion is linked to a learning outcomeProblem Definition: Manual Solution
+4 Pts
+Excellent
+Clearly outlines the steps to solve the problem manually, including data collection, preparation, and manual solution design. Identifies relevant experiments or prototypes.
+3 Pts
+Satisfactory
+Outlines manual steps with some detail but lacks completeness or specific examples.
+2 Pts
+Poor
+Provides a vague or incomplete description of manual steps.
+0 Pts
+No Marks
+No manual solution description provided.
+4 pts
+This criterion is linked to a learning outcomeMethods: Literature Review and Justifications
+5 Pts
+Excellent
+Thorough literature review identifies common methods, challenges, and limitations. Justifies selected methodology clearly and effectively.
+4 Pts
+Satisfactory
+Literature review identifies some relevant methods and challenges but lacks depth or clear justification.
+2 Pts
+Poor
+Minimal review or poor connection between the literature and chosen methodology.
+0 Pts
+No Marks
+No manual solution description provided.
+5 pts
+This criterion is linked to a learning outcomeMethods: Methodology Design
+6 Pts
+Excellent
+Clearly defines the methodology, including data collection, preprocessing, model selection, training, and evaluation techniques.
+4.8 Pts
+Satisfactory
+Defines methodology but lacks detail in one or more components (e.g., data preparation, evaluation).
+2.4 Pts
+Poor
+Methodology is incomplete or unclear.
+0 Pts
+No Marks
+No manual solution description provided.
+6 pts
+This criterion is linked to a learning outcomeMethods: Challenges and Assumptions
+5 Pts
+Excellent
+Identifies realistic challenges and assumptions for the project. Discusses potential limitations and their impact.
+4 Pts
+Satisfactory
+Identifies some challenges and assumptions but lacks depth or misses key considerations.
+2 Pts
+Poor
+Few or vague challenges and assumptions provided.
+0 Pts
+No Marks
+No challenges or assumptions addressed.
+5 pts
+This criterion is linked to a learning outcomeMethods: Experimental Design and Evaluation
+6 Pts
+Excellent
+Clearly outlines experimental setup, metrics for evaluation, and expected outcomes.
+4.8 Pts
+Satisfactory
+Experimental design is included but lacks details on metrics or outcomes.
+2.4 Pts
+Poor
+Minimal or unclear experimental setup provided.
+0 Pts
+No Marks
+No experimental design included.
+6 pts
+This criterion is linked to a learning outcomeCode Implementation: Functionality and Execution
+20 Pts
+Excellent
+Code is fully functional and executes as intended. Produces results consistent with the methods described in the report.
+16 Pts
+Satisfactory
+Code runs but may contain minor errors or deviations from the described methods.
+8 Pts
+Poor
+Code has major issues, incomplete functionality, or significant deviations.
+0 Pts
+No Marks
+Code does not run or fails to produce usable results.
+20 pts
+This criterion is linked to a learning outcomeCode Implementation: Clarity and Documentation
+11 Pts
+Excellent
+Code is well-organized and thoroughly documented with clear instructions for execution.
+8.8 Pts
+Satisfactory
+Code has some documentation and instructions, but they lack detail or clarity.
+4.4 Pts
+Poor
+Minimal or unclear documentation and instructions provided.
+0 Pts
+No Marks
+No documentation or execution instructions provided.
+11 pts
+This criterion is linked to a learning outcomeCode Implementation: Adherence to Methods
+10 Pts
+Excellent
+Code accurately implements the methods outlined in the report, reflecting the planned experimental setup.
+8 Pts
+Satisfactory
+Code partially aligns with the methods in the report, with minor inconsistencies.
+4 Pts
+Poor
+Code implementation diverges significantly from the described methods.
+0 Pts
+No Marks
+No alignment between code and report methods.
+10 pts
+This criterion is linked to a learning outcomePresentation and Overall Quality: Organization and Professionalism
+10 Pts
+Excellent
+Report and code are presented professionally, free from errors, and easy to follow.
+8 Pts
+Satisfactory
+Presentation is clear but contains minor organizational or grammatical issues.
+4 Pts
+Poor
+Disorganized or unprofessional presentation with multiple errors.
+0 Pts
+No Marks
+Lacks professionalism or clear organization.
+10 pts
+This criterion is linked to a learning outcomePresentation and Overall Quality: Creativity and Innovation
+5 Pts
+Excellent
+The project demonstrates significant originality or innovative approaches to problem-solving.
+4 Pts
+Satisfactory
+The project shows some creative elements but lacks full innovation.
+2 Pts
+Poor
+Minimal creativity or originality in the project.
+0 Pts
+No Marks
+No evidence of creativity or innovation.
+5 pts
+Total points: 100

@@ -1,0 +1,92 @@
+P1 — Defining a Problem
+Project: Topic Modeling arXiv cs.AI with BERTopic
+Team: Pavan Chauhan, Vedanta Nayak
+Course: CS5660 – Advanced Topics in AI
+Date: 11/06/2025
+Step 1: What is the Problem?
+Informal Description
+There are thousands of arXiv cs.AI abstracts, and it’s hard to see what subtopics are
+emerging or how themes relate. We want an unsupervised way to automatically
+discover, name, and visualize coherent research topics from these abstracts.
+Formal Definition — Unsupervised Learning Problem
+• Input Data (X): A set of unlabeled documents (titles + abstracts from arXiv
+cs.AI).
+• Objective: Discover structure without labels by grouping semantically similar
+abstracts into clusters (topics) and generating interpretable topic representations.
+Practically, we aim to maximize within-topic similarity and separate distinct
+topics (topic clusters identified from the data).
+Assumptions
+1. Each abstract has a dominant topic that can be represented by a single cluster.
+2. Sentence-BERT (SBERT) embeddings place semantically similar abstracts near
+each other in vector space.
+3. Dimensionality reduction (e.g., UMAP) preserves neighborhood structure that
+helps downstream clustering.
+4. Density-based clustering (e.g., HDBSCAN) fits research corpora with variable-
+sized, non-spherical clusters and can mark outliers as noise.
+5. c-TF-IDF can yield coherent, human-readable labels for clusters by extracting
+distinctive terms/phrases.
+6. Light text normalization (lowercasing, punctuation cleanup) is sufficient when
+using modern embeddings.
+7. The vocabulary in cs.AI shifts gradually enough that a snapshot (e.g., one
+semester) produces stable topics.
+8. A few thousand abstracts provide enough density for meaningful clustering.
+Similar Problems
+• Top2Vec/Embedding-Cluster Topic Modeling: Cluster document embeddings
+and extract top words near centroids; similar pipeline to BERTopic but with
+different labeling mechanics.
+• Visual Similarity Maps (e.g., Artwork Map): Images → CNN embeddings →
+dimensionality reduction → clustering to form neighborhoods; analogous
+unsupervised workflow on another modality.
+Step 2: Why does the Problem Need to be Solved?
+Motivation
+Students and researchers can’t keep up with the cs.AI firehose. An unsupervised
+overview turns hours of manual skimming into a map of themes, enabling targeted
+reading and exploration.
+Solution Benefits
+• Discovery: Surface niche or emerging areas (e.g., agentic workflows, evaluation
+benchmarks, tool use).
+• Organization: Group similar papers, show overlaps between topics, and (in later
+phases) track growth/decline across time.
+• On-ramp: Newcomers get a guided “table of contents” of the field instead of a
+flat list of papers.
+• Assessability: Topic Coherence (e.g., NPMI) and Topic Diversity give
+quantitative checks on topic quality.
+Solution Use, Lifetime, and Maintenance
+• Use: A simple web app with a 2D/3D scatter (UMAP) of abstracts colored by
+topic; clicking a topic shows top keywords and representative papers.
+• Lifetime: Useful for at least a semester; topics shift gradually.
+• Maintenance: Monthly refresh—ingest new cs.AI abstracts, re-embed, reduce,
+cluster, and re-label topics.
+Step 3: How Would I Solve the Problem Manually (without ML)?
+Data to Collect
+Download recent cs.AI titles + abstracts (e.g., past 12–18 months) and store them in a
+shared sheet with columns: arxiv_id, title, abstract, date.
+Data Preparation
+Normalize whitespace and remove boilerplate (e.g., “In this paper…”). As a team, draft
+a topic codebook of ~25 coarse categories (e.g., “LLM alignment,” “reasoning,” “multi-
+agent,” “robotics,” “safety,” “benchmarks,” “education,” etc.) and define labeling rules.
+Manual Solution Design (no ML)
+1. Triage & Label: Each team member reads ~50–100 abstracts and assigns 1–2
+topic tags per abstract from the codebook.
+2. Consolidate: Merge synonym topics (e.g., “tool use” vs. “tool-augmented
+LLMs”); lock a final list of ~12–20 topics.
+3. Relabel for Agreement: Revisit cases with disagreement; discuss edge cases
+until consensus.
+4. Summarize Topics: For each topic, manually select 5–10 representative n-
+grams and write a one-sentence topic description.
+5. Manual Visualization: Create a simple 2D grid: place topics by hand using two
+human-defined axes (e.g., “methods -- applications” and “symbolic -- neural”); list
+representative papers under each topic node.
+6. Quality Checks: Compute inter-annotator agreement (e.g., Cohen’s κ) on a
+sample; spot-check ~10% of abstracts.
+Prototypes / Experiments
+• Pilot (n ≈ 50 abstracts): Time the manual tagging, refine the codebook, and test
+if the 2D layout communicates differences clearly.
+• Scale Test (n ≈ 200 abstracts): Assess feasibility for a semester snapshot;
+refine multi-label rules for cross-cutting abstracts.
+Reflection
+The manual baseline clarifies problem scope, metrics, and failure modes. It exposes how
+subjective topic boundaries can be and why dimensionality reduction + clustering are
+valuable at scale (high-dimensional ambiguity, sparse neighborhoods). It also grounds
+evaluation: our manual summaries become qualitative references, while Topic
+Coherence and Topic Diversity provide quantitative checks when we later automate.
