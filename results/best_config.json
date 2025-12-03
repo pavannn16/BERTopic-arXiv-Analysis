@@ -1,0 +1,20 @@
+{
+  "params": {
+    "embedding_model": "mpnet",
+    "min_cluster_size": 50,
+    "n_neighbors": 10,
+    "n_components": 10
+  },
+  "metrics": {
+    "n_topics": 91,
+    "coherence_npmi": 0.09488302372754032,
+    "diversity": 0.5813186813186814,
+    "outlier_pct": 6.52065206520652,
+    "silhouette": 0.025903405621647835
+  },
+  "outlier_reduction": {
+    "before": 4187,
+    "after": 1304,
+    "strategy": "c-tf-idf"
+  }
+}

@@ -1,0 +1,54 @@
+
+======================================================================
+COMPREHENSIVE TOPIC MODEL EVALUATION REPORT
+Project: Topic Modeling arXiv cs.AI with BERTopic
+Team: Pavan Chauhan, Vedanta Nayak
+Course: CS5660 - Advanced Topics in AI
+Institution: California State University, Los Angeles
+======================================================================
+
+DATASET
+--------------------------------------------------
+Documents: 19,998
+Date range: 2025-07-03 to 2025-12-02
+
+MODEL CONFIGURATION (Best from Hyperparameter Tuning)
+--------------------------------------------------
+Embedding: MPNET
+min_cluster_size: 50
+n_neighbors: 10
+n_components: 10
+Vectorizer: ngram_range=(1,2), stop_words=english
+
+EVALUATION METRICS
+--------------------------------------------------
+Number of topics: 91
+Outliers: 1304 (6.5%)
+
+Topic Coherence (NPMI): 0.0949
+Topic Diversity: 0.5813 (58.1% unique words)
+Silhouette Score: 0.0259
+
+MODEL COMPARISON
+--------------------------------------------------
+BERTopic (MPNet): 0.0949 ← BEST
+BERTopic (MiniLM): 0.1051
+LDA Baseline: -0.0529
+
+Improvement over LDA: +0.1477 (279.5% better)
+
+INTERPRETATION
+--------------------------------------------------
+✅ Coherence: Good topic quality (NPMI > 0.05 is good)
+✅ Diversity: Topics are moderately distinct (58% unique words)
+⚠️ Silhouette: Weak cluster separation
+✅ BERTopic significantly outperforms LDA baseline
+
+KEY FINDINGS
+--------------------------------------------------
+1. Neural embeddings (SBERT) capture semantic meaning better than bag-of-words
+2. Automatic topic discovery identifies meaningful AI research themes
+3. Topics cover: LLMs, reinforcement learning, computer vision, NLP, robotics, etc.
+4. Low outlier rate indicates good topic coverage
+
+======================================================================

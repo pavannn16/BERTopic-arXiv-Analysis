@@ -1,0 +1,50 @@
+
+======================================================================
+HYPERPARAMETER TUNING & MODEL COMPARISON REPORT
+Project: Topic Modeling arXiv cs.AI with BERTopic
+Team: Pavan Chauhan, Vedanta Nayak
+======================================================================
+
+HYPERPARAMETER SEARCH
+--------------------------------------------------
+Total configurations tested: 60
+Embedding models: MPNet, MiniLM
+min_cluster_size: [10, 15, 20, 30, 50]
+n_neighbors: [10, 15, 25]
+n_components: [5, 10]
+
+EMBEDDING MODEL COMPARISON
+--------------------------------------------------
+MPNet (all-mpnet-base-v2):
+  - Best coherence: 0.0999
+  - Mean coherence: 0.0756
+  - Parameters: 110M
+
+MiniLM (all-MiniLM-L6-v2):
+  - Best coherence: 0.1051
+  - Mean coherence: 0.0833
+  - Parameters: 22M (5x smaller)
+
+BEST MODEL
+--------------------------------------------------
+Embedding: MPNET
+min_cluster_size: 50
+n_neighbors: 10
+n_components: 10
+
+OUTLIER REDUCTION
+--------------------------------------------------
+Strategy: c-TF-IDF similarity
+Before: 4187 outliers (20.9%)
+After: 1304 outliers (6.5%)
+Improvement: 2883 documents reassigned
+
+FINAL METRICS
+--------------------------------------------------
+Topics: 91
+Coherence (NPMI): 0.0949
+Topic Diversity: 0.5813 (58.1%)
+Silhouette Score: 0.0259
+Outlier %: 6.5%
+
+======================================================================

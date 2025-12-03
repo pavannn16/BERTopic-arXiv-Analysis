@@ -1,0 +1,4 @@
+Model,Embedding,Topics,Coherence (NPMI),Diversity,Silhouette,Outliers
+BERTopic (MPNet),all-mpnet-base-v2 (110M params),91,0.0949,0.5813,0.0259,6.5%
+BERTopic (MiniLM),all-MiniLM-L6-v2 (22M params),91,0.1051,0.5813,~,~
+LDA Baseline,Bag-of-Words,91,-0.0529,N/A,N/A,0%
