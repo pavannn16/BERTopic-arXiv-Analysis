@@ -10,7 +10,7 @@
 # Options: "train" or "infer"
 # - train: Fetch data, train models, run full pipeline
 # - infer: Use pre-trained models and existing data (faster)
-mode: "infer"
+mode: "train"
 
 # ======================
 # DATA SETTINGS

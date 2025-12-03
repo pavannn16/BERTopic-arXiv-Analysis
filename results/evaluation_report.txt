@@ -39,10 +39,10 @@ Improvement over LDA: +0.1477 (279.5% better)
 
 INTERPRETATION
 --------------------------------------------------
-✅ Coherence: Good topic quality (NPMI > 0.05 is good)
-✅ Diversity: Topics are moderately distinct (58% unique words)
+Coherence: Good topic quality (NPMI > 0.05 is good)
+Diversity: Topics are moderately distinct (58% unique words)
 ⚠️ Silhouette: Weak cluster separation
-✅ BERTopic significantly outperforms LDA baseline
+BERTopic significantly outperforms LDA baseline
 
 KEY FINDINGS
 --------------------------------------------------
