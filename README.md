@@ -102,20 +102,27 @@ This project implements a **state-of-the-art unsupervised topic modeling system*
 
 **Best for evaluation - runs entirely in browser with free GPU, no installation required!**
 
-### Step 1: Download Pre-collected Dataset (Optional but Faster)
+### Two Running Modes
 
-> **📥 Dataset Download:** [Google Drive Link](https://drive.google.com/YOUR_LINK_HERE)
+| Mode | Description | When to Use |
+|------|-------------|-------------|
+| **🔮 INFER** (default) | Downloads pre-trained model & data from public Google Drive | Evaluation, quick demo, reproducing results |
+| **🏋️ TRAIN** | Mounts your personal Drive, fetches fresh data from arXiv | Full training run, your own experiments |
+
+> **Mode is configured in `config.yaml`** - set `mode: "infer"` or `mode: "train"`
+
+### 📥 Public Dataset & Models
+
+All data and trained models are publicly available - **no login required!**
+
+> **📦 Google Drive Folder:** [Public BERTopic-arXiv-Analysis Data](https://drive.google.com/drive/folders/1T3vkmvm8YbUCXCMRoroWDXJlKHfMC5Gj)
 > 
-> This saves ~15 minutes of API fetching. Place files in the `data/raw/` folder.
+> Contains: raw data, processed data, embeddings, trained models, results
 
-### Step 2: Open Notebooks in Colab
+### Step 1: Open Notebooks in Colab
 
-1. Go to [Google Colab](https://colab.research.google.com/)
-2. **File → Open notebook → GitHub tab**
-3. Enter repository URL: `https://github.com/pavannn16/BERTopic-arXiv-Analysis`
-4. Select a notebook to open
+Click these direct links (no setup required!):
 
-**Or click these direct links:**
 - [01_data_collection.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/01_data_collection.ipynb)
 - [02_preprocessing.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/02_preprocessing.ipynb)
 - [03_topic_modeling.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/03_topic_modeling.ipynb)
@@ -123,24 +130,28 @@ This project implements a **state-of-the-art unsupervised topic modeling system*
 - [04_evaluation.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/04_evaluation.ipynb)
 - [05_visualization.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/05_visualization.ipynb)
 
-### Step 3: Enable GPU Runtime
+### Step 2: Enable GPU Runtime (Optional but Faster)
 
 1. **Runtime → Change runtime type**
 2. Select **GPU** (T4 is free, A100 with Colab Pro)
 3. Click **Save**
 
-### Step 4: Run Notebooks in Order
+### Step 3: Run Notebooks
 
-| Order | Notebook | What it Does | Time |
-|-------|----------|--------------|------|
-| 1️⃣ | `01_data_collection.ipynb` | Fetches 20K papers from arXiv | ~15 min |
-| 2️⃣ | `02_preprocessing.ipynb` | Cleans text data | ~1 min |
-| 3️⃣ | `03_topic_modeling.ipynb` | Trains BERTopic model | ~5 min |
-| 3️⃣b | `03b_hyperparameter_tuning.ipynb` | **Grid search + model comparison** ⭐ | ~15 min |
-| 4️⃣ | `04_evaluation.ipynb` | Metrics + LDA + MiniLM comparison | ~5 min |
-| 5️⃣ | `05_visualization.ipynb` | Generates interactive plots | ~2 min |
+**🔮 INFER Mode (Default):** Notebooks automatically clone repo, load config, and download data from public Drive. Just run cells!
 
-**Total runtime: ~45 minutes with GPU (including hyperparameter tuning)**
+**🏋️ TRAIN Mode:** Change `mode: "train"` in `config.yaml` to fetch fresh data and train from scratch.
+
+| Order | Notebook | INFER Mode | TRAIN Mode |
+|-------|----------|------------|------------|
+| 1️⃣ | `01_data_collection.ipynb` | Downloads existing data | Fetches 20K papers from arXiv (~15 min) |
+| 2️⃣ | `02_preprocessing.ipynb` | Uses processed data | Cleans text (~1 min) |
+| 3️⃣ | `03_topic_modeling.ipynb` | Loads pre-trained model | Trains BERTopic (~5 min) |
+| 3️⃣b | `03b_hyperparameter_tuning.ipynb` | Loads tuned model | Grid search (~15 min) |
+| 4️⃣ | `04_evaluation.ipynb` | Evaluates existing model | Same (~5 min) |
+| 5️⃣ | `05_visualization.ipynb` | Generates visualizations | Same (~2 min) |
+
+**INFER mode total: ~5 minutes** | **TRAIN mode total: ~45 minutes**
 
 ---
 
@@ -185,6 +196,8 @@ Open notebooks in Jupyter and run in order: `01` → `02` → `03` → `04` → 
 ```
 BERTopic-arXiv-Analysis/
 │
+├── ⚙️ config.yaml                        # ⭐ Configuration file (mode, hyperparameters)
+│
 ├── 📓 notebooks/                         # Run these in order
 │   ├── 01_data_collection.ipynb         # Fetch 20K arXiv papers
 │   ├── 02_preprocessing.ipynb           # Text cleaning
@@ -194,10 +207,12 @@ BERTopic-arXiv-Analysis/
 │   └── 05_visualization.ipynb           # Interactive visualizations
 │
 ├── 📦 src/                               # Reusable Python modules
+│   ├── __init__.py
 │   ├── fetch_arxiv.py                   # arXiv API utilities
 │   ├── preprocess.py                    # Text cleaning functions
 │   ├── topic_model.py                   # BERTopic wrapper
-│   └── evaluate.py                      # Evaluation metrics
+│   ├── evaluate.py                      # Evaluation metrics
+│   └── utils.py                         # ⭐ Config loader & Drive download utilities
 │
 ├── 📊 data/                              # Generated by notebooks
 │   ├── raw/                             # arxiv_cs_ai_raw.csv

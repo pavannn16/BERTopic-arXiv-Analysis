@@ -1,0 +1,101 @@
+# ============================================================
+# BERTopic arXiv Analysis - Configuration File
+# ============================================================
+# Modify these settings to customize your experiment
+# ============================================================
+
+# ======================
+# MODE SETTINGS
+# ======================
+# Options: "train" or "infer"
+# - train: Fetch data, train models, run full pipeline
+# - infer: Use pre-trained models and existing data (faster)
+mode: "infer"
+
+# ======================
+# DATA SETTINGS
+# ======================
+data:
+  # Public Google Drive folder with pre-computed data
+  # Anyone can access this without mounting personal Drive
+  gdrive_folder_id: "1T3vkmvm8YbUCXCMRoroWDXJlKHfMC5Gj"
+  gdrive_url: "https://drive.google.com/drive/folders/1T3vkmvm8YbUCXCMRoroWDXJlKHfMC5Gj"
+  
+  # arXiv API settings (only used in train mode)
+  arxiv:
+    category: "cs.AI"           # arXiv category to fetch
+    max_results: 20000          # Maximum papers to fetch
+    months_back: 24             # How many months of historical data
+    batch_size: 100             # Papers per API request
+    delay_seconds: 3.0          # Delay between requests (be respectful to API)
+
+# ======================
+# MODEL SETTINGS
+# ======================
+model:
+  # Embedding model options:
+  # - "all-mpnet-base-v2": Higher quality, 110M params, slower
+  # - "all-MiniLM-L6-v2": Good quality, 22M params, 5x faster
+  embedding_model: "all-mpnet-base-v2"
+  
+  # UMAP dimensionality reduction
+  umap:
+    n_neighbors: 10             # Local neighborhood size (10-50)
+    n_components: 10            # Target dimensions (5-15)
+    min_dist: 0.0               # Minimum distance between points
+    metric: "cosine"            # Distance metric
+  
+  # HDBSCAN clustering
+  hdbscan:
+    min_cluster_size: 50        # Minimum documents per cluster (10-100)
+    min_samples: 10             # Core sample threshold
+    metric: "euclidean"         # Distance metric for clustering
+    cluster_selection_method: "eom"  # eom or leaf
+  
+  # Topic representation
+  vectorizer:
+    ngram_range: [1, 2]         # Unigrams and bigrams
+    min_df: 5                   # Minimum document frequency
+    max_df: 0.95                # Maximum document frequency
+    stop_words: "english"       # Stop words to remove
+
+# ======================
+# OUTLIER REDUCTION
+# ======================
+outlier_reduction:
+  enabled: true
+  strategy: "c-tf-idf"          # Options: c-tf-idf, embeddings, distributions
+  threshold: 0.1                # Similarity threshold for reassignment
+
+# ======================
+# EVALUATION SETTINGS
+# ======================
+evaluation:
+  coherence_metric: "c_npmi"    # Options: c_npmi, c_v, u_mass
+  top_n_words: 10               # Number of words per topic for evaluation
+  run_lda_baseline: true        # Compare with LDA baseline
+
+# ======================
+# HYPERPARAMETER TUNING
+# ======================
+# Only used when running notebook 03b
+hyperparameter_search:
+  enabled: false                # Set true to run grid search
+  embedding_models: ["mpnet", "minilm"]
+  min_cluster_sizes: [10, 15, 20, 30, 50]
+  n_neighbors_list: [10, 15, 25]
+  n_components_list: [5, 10]
+
+# ======================
+# OUTPUT SETTINGS
+# ======================
+output:
+  save_model: true
+  save_embeddings: true
+  save_visualizations: true
+  visualization_format: "html"  # html or png
+
+# ======================
+# RANDOM SEED
+# ======================
+random_seed: 42
