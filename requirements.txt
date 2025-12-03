@@ -37,9 +37,11 @@ tqdm>=4.66.0
 # Jupyter/Colab support
 ipywidgets>=8.1.0
 
-# Configuration & Google Drive access
+# Configuration
 pyyaml>=6.0
-gdown>=5.1.0
+
+# Model serialization
+safetensors>=0.4.0
 
 # Optional: for faster similarity search
 # faiss-cpu>=1.7.4  # Uncomment if needed

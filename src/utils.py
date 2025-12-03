@@ -1,6 +1,6 @@
 """
 Project utilities for BERTopic arXiv Analysis
-Handles configuration loading, Google Drive access, and path setup
+Handles configuration loading and path setup
 """
 
 import os
@@ -47,7 +47,6 @@ def get_default_config():
     return {
         'mode': 'infer',
         'data': {
-            'gdrive_folder_id': '1T3vkmvm8YbUCXCMRoroWDXJlKHfMC5Gj',
             'arxiv': {
                 'category': 'cs.AI',
                 'max_results': 20000,
@@ -71,7 +70,6 @@ def get_default_config():
 def setup_environment(config=None):
     """
     Set up the project environment based on execution context.
-    Handles both personal Drive mounting and public folder access.
     
     Returns:
         tuple: (PROJECT_PATH, is_colab, mode)
@@ -89,7 +87,17 @@ def setup_environment(config=None):
         is_colab = False
     
     if is_colab:
-        PROJECT_PATH = setup_colab_environment(config, mode)
+        if mode == 'train':
+            # Training mode - mount personal Drive for saving results
+            from google.colab import drive
+            print("🔧 TRAIN mode: Mounting personal Google Drive...")
+            drive.mount('/content/drive')
+            PROJECT_PATH = '/content/drive/MyDrive/BERTopic-arXiv-Analysis'
+            print("✅ Personal Drive mounted (read/write access)")
+        else:
+            # Inference mode - use cloned repo (data included)
+            PROJECT_PATH = '/content/BERTopic-arXiv-Analysis'
+            print("✅ INFER mode: Using data from cloned repo")
     else:
         # Running locally
         PROJECT_PATH = str(Path(os.getcwd()).parent) if 'notebooks' in os.getcwd() else os.getcwd()
@@ -103,89 +111,6 @@ def setup_environment(config=None):
     print(f"🔧 Mode: {mode.upper()}")
     
     return PROJECT_PATH, is_colab, mode
-
-
-def setup_colab_environment(config, mode):
-    """
-    Set up Google Colab environment.
-    - In TRAIN mode: Mount personal Drive for read/write
-    - In INFER mode: Download from public shared folder
-    """
-    from google.colab import drive
-    
-    if mode == 'train':
-        # Training mode - need personal Drive for saving results
-        print("🔧 TRAIN mode: Mounting personal Google Drive...")
-        drive.mount('/content/drive')
-        PROJECT_PATH = '/content/drive/MyDrive/BERTopic-arXiv-Analysis'
-        print("✅ Personal Drive mounted (read/write access)")
-    else:
-        # Inference mode - use public shared data
-        print("🔧 INFER mode: Using public shared data...")
-        PROJECT_PATH = '/content/BERTopic-arXiv-Analysis'
-        os.makedirs(PROJECT_PATH, exist_ok=True)
-        
-        # Download data from public Drive folder
-        download_from_public_drive(config, PROJECT_PATH)
-        print("✅ Public data downloaded (read-only mode)")
-    
-    return PROJECT_PATH
-
-
-def download_from_public_drive(config, project_path):
-    """
-    Download files from public Google Drive folder using gdown.
-    """
-    import subprocess
-    
-    # Install gdown if not available
-    try:
-        import gdown
-    except ImportError:
-        subprocess.run(['pip', 'install', 'gdown', '-q'], check=True)
-        import gdown
-    
-    folder_id = config['data']['gdrive_folder_id']
-    
-    print(f"📥 Downloading from public Drive folder: {folder_id}")
-    
-    # Download entire folder
-    url = f"https://drive.google.com/drive/folders/{folder_id}"
-    
-    try:
-        gdown.download_folder(url, output=project_path, quiet=False, use_cookies=False)
-        print("✅ Download complete!")
-    except Exception as e:
-        print(f"⚠️ Folder download failed: {e}")
-        print("Trying individual file downloads...")
-        download_essential_files(folder_id, project_path)
-
-
-def download_essential_files(folder_id, project_path):
-    """
-    Download essential files individually if folder download fails.
-    """
-    import gdown
-    
-    # Known file IDs from your public folder (you may need to update these)
-    essential_files = {
-        'data/processed/arxiv_cs_ai_processed.csv': None,  # Will be fetched from folder listing
-        'data/embeddings/embeddings_mpnet.npy': None,
-        'models/bertopic_best_model': None,
-        'results/best_config.json': None,
-    }
-    
-    print("📥 Downloading essential files...")
-    
-    # List files in folder and download
-    try:
-        import requests
-        # Use gdown to list folder contents
-        url = f"https://drive.google.com/drive/folders/{folder_id}"
-        gdown.download_folder(url, output=project_path, quiet=True, use_cookies=False)
-    except Exception as e:
-        print(f"⚠️ Could not download files: {e}")
-        print("Please ensure the Drive folder is publicly accessible.")
 
 
 def get_model_params_from_config(config):

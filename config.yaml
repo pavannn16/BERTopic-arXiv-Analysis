@@ -16,11 +16,6 @@ mode: "infer"
 # DATA SETTINGS
 # ======================
 data:
-  # Public Google Drive folder with pre-computed data
-  # Anyone can access this without mounting personal Drive
-  gdrive_folder_id: "1T3vkmvm8YbUCXCMRoroWDXJlKHfMC5Gj"
-  gdrive_url: "https://drive.google.com/drive/folders/1T3vkmvm8YbUCXCMRoroWDXJlKHfMC5Gj"
-  
   # arXiv API settings (only used in train mode)
   arxiv:
     category: "cs.AI"           # arXiv category to fetch
