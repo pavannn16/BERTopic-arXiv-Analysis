@@ -15,8 +15,8 @@
 1. [Project Overview](#-project-overview)
 2. [Key Features](#-key-features)
 3. [Results Summary](#-results-summary)
-4. [Quick Start (Google Colab)](#-quick-start-google-colab---recommended)
-5. [Local Setup](#-local-setup-alternative)
+4. [Quick Start (Local)](#-quick-start-local---recommended)
+5. [Google Colab (Alternative)](#-google-colab-alternative)
 6. [Project Structure](#-project-structure)
 7. [Pipeline Details](#-pipeline-details)
 8. [Methodology](#-methodology)
@@ -72,122 +72,122 @@ This project implements a **state-of-the-art unsupervised topic modeling system*
 
 ## 📊 Results Summary
 
+### Best Model Performance
+
+| Metric | Value | Interpretation |
+|--------|-------|----------------|
+| **Documents Processed** | 19,998 | arXiv cs.AI papers |
+| **Topics Discovered** | 91 | Auto-determined via HDBSCAN |
+| **Coherence (NPMI)** | **0.0949** | ✅ Good (positive = coherent) |
+| **Topic Diversity** | **58.1%** | ✅ Good variety |
+| **Improvement over LDA** | **+279%** | Significantly better |
+
 ### Model Comparison
 
 | Model | Coherence (NPMI) | Diversity | Parameters | Winner |
 |-------|------------------|-----------|------------|--------|
-| **BERTopic (MPNet)** | **+0.08** | **69%** | 110M | 🏆 |
-| BERTopic (MiniLM) | +0.07 | 68% | 22M | ⚡ Fast |
-| LDA Baseline | -0.09 | N/A | N/A | ❌ |
+| **BERTopic (Best Config)** | **0.0949** | **58.1%** | 110M | 🏆 |
+| BERTopic (MPNet default) | 0.0774 | 66.9% | 110M | |
+| BERTopic (MiniLM) | 0.0574 | 69.4% | 22M | ⚡ Fast |
+| LDA Baseline | 0.0250 | N/A | N/A | ❌ |
 
-### Key Metrics
-
-| Metric | Value | Interpretation |
-|--------|-------|----------------|
-| **Documents Processed** | 20,000 | arXiv cs.AI papers |
-| **Topics Discovered** | ~150-200 | Auto-determined via HDBSCAN |
-| **Coherence (NPMI)** | **+0.08** | ✅ Good (positive = coherent) |
-| **Topic Diversity** | **69%** | ✅ High variety |
-| **Outlier Rate** | <15% | After outlier reduction |
-| **Improvement over LDA** | **+0.17** | Significantly better |
-
-### Hyperparameter Tuning Results
-- **60 configurations tested** across embedding models, cluster sizes, and UMAP parameters
-- **Best config**: MPNet embeddings, min_cluster_size=15-20, n_neighbors=15
-- **Outlier reduction**: c-TF-IDF strategy reduces outliers by ~50%
+### Best Hyperparameters
+- **Embedding Model**: `all-mpnet-base-v2`
+- **min_cluster_size**: 50
+- **n_neighbors**: 10
+- **n_components**: 10
 
 ---
 
-## 🚀 Quick Start (Google Colab) - RECOMMENDED
+## 🚀 Quick Start (Local) - RECOMMENDED
 
-**Best for evaluation - runs entirely in browser with free GPU, no installation required!**
+**All data, trained models, and results are included in the repository!** Clone and run - no downloads required.
+
+### Prerequisites
+- Python 3.9+ (tested with 3.11)
+- 16GB+ RAM recommended
+- ~500MB disk space
+
+### Installation
+
+```bash
+# 1. Clone repository (includes all data!)
+git clone https://github.com/pavannn16/BERTopic-arXiv-Analysis.git
+cd BERTopic-arXiv-Analysis
+
+# 2. Create virtual environment
+python3 -m venv .venv
+
+# 3. Activate environment
+# macOS/Linux:
+source .venv/bin/activate
+# Windows:
+.venv\Scripts\activate
+
+# 4. Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### Run Notebooks
+
+```bash
+# Launch Jupyter
+jupyter notebook
+```
+
+Open notebooks in order and run cells:
+
+| Order | Notebook | What It Does | Runtime |
+|-------|----------|--------------|---------|
+| 1️⃣ | `01_data_collection.ipynb` | Loads existing arXiv data (20K papers) | ~1 sec |
+| 2️⃣ | `02_preprocessing.ipynb` | Loads preprocessed documents | ~1 sec |
+| 3️⃣ | `03_topic_modeling.ipynb` | Loads trained BERTopic model | ~10 sec |
+| 4️⃣ | `04_evaluation.ipynb` | Runs evaluation metrics | ~2 min |
+| 5️⃣ | `05_visualization.ipynb` | Generates visualizations | ~1 min |
+
+**Total runtime in INFER mode: ~5 minutes**
 
 ### Two Running Modes
 
 | Mode | Description | When to Use |
 |------|-------------|-------------|
-| **🔮 INFER** (default) | Downloads pre-trained model & data from public Google Drive | Evaluation, quick demo, reproducing results |
-| **🏋️ TRAIN** | Mounts your personal Drive, fetches fresh data from arXiv | Full training run, your own experiments |
+| **🔮 INFER** (default) | Uses pre-existing data & models in repo | Quick evaluation, reproducing results |
+| **🏋️ TRAIN** | Fetches fresh data from arXiv, trains new model | New experiments, custom training |
 
-> **Mode is configured in `config.yaml`** - set `mode: "infer"` or `mode: "train"`
-
-### 📥 Public Dataset & Models
-
-All data and trained models are publicly available - **no login required!**
-
-> **📦 Google Drive Folder:** [Public BERTopic-arXiv-Analysis Data](https://drive.google.com/drive/folders/1T3vkmvm8YbUCXCMRoroWDXJlKHfMC5Gj)
-> 
-> Contains: raw data, processed data, embeddings, trained models, results
-
-### Step 1: Open Notebooks in Colab
-
-Click these direct links (no setup required!):
-
-- [01_data_collection.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/01_data_collection.ipynb)
-- [02_preprocessing.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/02_preprocessing.ipynb)
-- [03_topic_modeling.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/03_topic_modeling.ipynb)
-- [03b_hyperparameter_tuning.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/03b_hyperparameter_tuning.ipynb) ⭐ NEW
-- [04_evaluation.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/04_evaluation.ipynb)
-- [05_visualization.ipynb](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/05_visualization.ipynb)
-
-### Step 2: Enable GPU Runtime (Optional but Faster)
-
-1. **Runtime → Change runtime type**
-2. Select **GPU** (T4 is free, A100 with Colab Pro)
-3. Click **Save**
-
-### Step 3: Run Notebooks
-
-**🔮 INFER Mode (Default):** Notebooks automatically clone repo, load config, and download data from public Drive. Just run cells!
-
-**🏋️ TRAIN Mode:** Change `mode: "train"` in `config.yaml` to fetch fresh data and train from scratch.
-
-| Order | Notebook | INFER Mode | TRAIN Mode |
-|-------|----------|------------|------------|
-| 1️⃣ | `01_data_collection.ipynb` | Downloads existing data | Fetches 20K papers from arXiv (~15 min) |
-| 2️⃣ | `02_preprocessing.ipynb` | Uses processed data | Cleans text (~1 min) |
-| 3️⃣ | `03_topic_modeling.ipynb` | Loads pre-trained model | Trains BERTopic (~5 min) |
-| 3️⃣b | `03b_hyperparameter_tuning.ipynb` | Loads tuned model | Grid search (~15 min) |
-| 4️⃣ | `04_evaluation.ipynb` | Evaluates existing model | Same (~5 min) |
-| 5️⃣ | `05_visualization.ipynb` | Generates visualizations | Same (~2 min) |
-
-**INFER mode total: ~5 minutes** | **TRAIN mode total: ~45 minutes**
+> **Mode is configured in `config.yaml`** - set `mode: "infer"` (default) or `mode: "train"`
 
 ---
 
-## 💻 Local Setup (Alternative)
+## ☁️ Google Colab (Alternative)
 
-### Prerequisites
-- Python 3.9+
-- 16GB+ RAM
-- GPU optional (CPU works but slower for notebook 03)
+**Run in browser with free GPU - useful for TRAIN mode or if you don't have local Python.**
 
-### Installation
+### Open Notebooks Directly
 
-```bash
-# 1. Clone repository
-git clone https://github.com/pavannn16/BERTopic-arXiv-Analysis.git
-cd BERTopic-arXiv-Analysis
+Click these links (no setup required!):
 
-# 2. Create virtual environment
-python3 -m venv venv
+| Notebook | Link |
+|----------|------|
+| 01 Data Collection | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/01_data_collection.ipynb) |
+| 02 Preprocessing | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/02_preprocessing.ipynb) |
+| 03 Topic Modeling | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/03_topic_modeling.ipynb) |
+| 04 Evaluation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/04_evaluation.ipynb) |
+| 05 Visualization | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/05_visualization.ipynb) |
 
-# 3. Activate environment
-# macOS/Linux:
-source venv/bin/activate
-# Windows:
-venv\Scripts\activate
+### Enable GPU (Optional)
 
-# 4. Install dependencies
-pip install --upgrade pip
-pip install -r requirements.txt
+1. **Runtime → Change runtime type**
+2. Select **GPU** (T4 is free)
+3. Click **Save**
 
-# 5. Launch Jupyter
-jupyter notebook
-```
+### Run Notebooks
 
-### Run Pipeline
-Open notebooks in Jupyter and run in order: `01` → `02` → `03` → `04` → `05`
+Notebooks automatically clone the repo and load config. Just run cells in order!
+
+**🔮 INFER Mode (Default):** Uses data from repo - no external downloads needed.
+
+**🏋️ TRAIN Mode:** Change `mode: "train"` in `config.yaml` and mount your Google Drive for persistent storage.
 
 ---
 
@@ -199,10 +199,9 @@ BERTopic-arXiv-Analysis/
 ├── ⚙️ config.yaml                        # ⭐ Configuration file (mode, hyperparameters)
 │
 ├── 📓 notebooks/                         # Run these in order
-│   ├── 01_data_collection.ipynb         # Fetch 20K arXiv papers
+│   ├── 01_data_collection.ipynb         # Load arXiv data
 │   ├── 02_preprocessing.ipynb           # Text cleaning
 │   ├── 03_topic_modeling.ipynb          # BERTopic training (GPU)
-│   ├── 03b_hyperparameter_tuning.ipynb  # ⭐ Grid search & model comparison
 │   ├── 04_evaluation.ipynb              # Metrics & baseline comparisons
 │   └── 05_visualization.ipynb           # Interactive visualizations
 │
@@ -212,26 +211,37 @@ BERTopic-arXiv-Analysis/
 │   ├── preprocess.py                    # Text cleaning functions
 │   ├── topic_model.py                   # BERTopic wrapper
 │   ├── evaluate.py                      # Evaluation metrics
-│   └── utils.py                         # ⭐ Config loader & Drive download utilities
+│   └── utils.py                         # Config loader & setup utilities
 │
-├── 📊 data/                              # Generated by notebooks
-│   ├── raw/                             # arxiv_cs_ai_raw.csv
-│   ├── processed/                       # arxiv_cs_ai_processed.csv
-│   └── embeddings/                      # MPNet & MiniLM embeddings
+├── 📊 data/                              # ✅ INCLUDED IN REPO (clone and run!)
+│   ├── raw/                             # arxiv_cs_ai_raw.csv (20K papers)
+│   │   ├── arxiv_cs_ai_raw.csv
+│   │   └── arxiv_cs_ai_raw.json
+│   ├── processed/                       # Cleaned documents
+│   │   ├── arxiv_cs_ai_processed.csv
+│   │   └── documents.json
+│   └── embeddings/                      # Pre-computed SBERT embeddings
+│       ├── embeddings_mpnet.npy         # MPNet (768-dim)
+│       ├── embeddings_minilm.npy        # MiniLM (384-dim)
+│       └── embeddings_2d*.npy           # UMAP reduced
 │
-├── 🤖 models/                            
-│   ├── bertopic_model/                  # Default model
-│   └── bertopic_best_model/             # ⭐ Best from hyperparameter tuning
+├── 🤖 models/                            # ✅ INCLUDED IN REPO
+│   ├── bertopic_model/                  # Default trained model
+│   └── bertopic_best_model/             # Best from hyperparameter tuning
 │
-├── 📈 results/                           
-│   ├── hyperparameter_search_results.csv # Grid search results
-│   ├── model_comparison.csv             # MPNet vs MiniLM vs LDA
+├── 📈 results/                           # ✅ INCLUDED IN REPO
+│   ├── evaluation_metrics.json          # All metrics in JSON
 │   ├── evaluation_report.txt            # Comprehensive report
-│   └── *.html                           # Interactive visualizations
+│   ├── model_comparison.csv             # MPNet vs MiniLM vs LDA
+│   ├── topic_assignments_best.csv       # Topic per document
+│   ├── *.html                           # Interactive visualizations
+│   └── *.png                            # Static plots
 │
 ├── 📄 requirements.txt                   # Python dependencies
 └── 📄 README.md                          # This file
 ```
+
+> **📦 Repository size: ~460MB** - All data, models, and results are included for instant inference!
 
 ---
 

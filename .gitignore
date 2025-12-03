@@ -2,6 +2,10 @@
 # CS5660 BERTopic Project - Git Ignore Rules
 # ===========================================
 
+# ============ NOTE ============
+# Data, models, and results ARE tracked in git
+# This allows users to clone and run inference immediately
+
 # ============ Python ============
 __pycache__/
 *.py[cod]
