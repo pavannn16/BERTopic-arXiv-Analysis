@@ -1,5 +1,6 @@
 # 🤖 Topic Modeling arXiv cs.AI with BERTopic
 
+[![GitHub Repo](https://img.shields.io/badge/GitHub-pavannn16%2FBERTopic--arXiv--Analysis-blue?logo=github)](https://github.com/pavannn16/BERTopic-arXiv-Analysis)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pavannn16/BERTopic-arXiv-Analysis/blob/main/notebooks/01_data_collection.ipynb)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
